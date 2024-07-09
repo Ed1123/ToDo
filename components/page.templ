@@ -9,9 +9,29 @@ templ Page(todos []models.ToDo) {
         <body>
                 for _,  todo := range todos {
                     <div>
-                    @TodoComponent(todo)
+                    @Todo(todo)
                     </div>
                 }
         </body>
     </html>
+}
+
+templ Todo(todo models.ToDo) {
+	<fieldset>
+		<legend>{ todo.Date.Format("2006-01-02") }</legend>
+		<div class="tasks">
+			for _, task := range todo.Tasks {
+				@Task(task)
+			}
+		</div>
+	</fieldset>
+}
+
+templ Task(task models.Task) {
+	<div class="task">
+    <input type="checkbox" checked?={ task.Completed } />
+	<label>
+        { task.Name }
+    </label>
+    </div>
 }

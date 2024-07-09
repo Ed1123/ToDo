@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -25,7 +24,4 @@ func main() {
 	port := ":3000"
 	fmt.Println("Listening on port", port)
 	http.ListenAndServe(port, nil)
-
-	jsonTodo, _ := json.MarshalIndent(todaysTodo, "", "  ")
-	print(string(jsonTodo))
 }
