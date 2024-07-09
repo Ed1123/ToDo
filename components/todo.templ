@@ -1,0 +1,18 @@
+package components
+
+import "github.com/Ed1123/todo/models"
+
+templ Task(task models.Task) {
+	<div class="task">{ task.Name }</div>
+}
+
+templ Todo(todo models.ToDo) {
+	<div class="todo">
+		<h1>{ todo.Date.Format("2006-01-02") }</h1>
+		<div class="tasks">
+			for _, task := range todo.Tasks {
+				@Task(task)
+			}
+		</div>
+	</div>
+}
