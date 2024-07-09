@@ -1,0 +1,17 @@
+package components
+import "github.com/Ed1123/todo/models"
+
+templ Page(todos []models.ToDo) {
+    <html>
+        <head>
+            <title>ToDo</title>
+        </head>
+        <body>
+                for _,  todo := range todos {
+                    <div>
+                    @TodoComponent(todo)
+                    </div>
+                }
+        </body>
+    </html>
+}

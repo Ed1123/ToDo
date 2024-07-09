@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -18,13 +19,13 @@ func main() {
 
 	todaysTodo := models.NewToDo()
 	todaysTodo.Tasks = tasks
-	fmt.Println(todaysTodo)
 
-	todoComponent := components.Todo(todaysTodo)
-
-	http.Handle("/", templ.Handler(todoComponent))
+	http.Handle("/", templ.Handler(components.Page([]models.ToDo{todaysTodo, todaysTodo})))
 
 	port := ":3000"
 	fmt.Println("Listening on port", port)
 	http.ListenAndServe(port, nil)
+
+	jsonTodo, _ := json.MarshalIndent(todaysTodo, "", "  ")
+	print(string(jsonTodo))
 }
