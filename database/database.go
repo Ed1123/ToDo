@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Ed1123/todo/models"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
@@ -34,4 +35,13 @@ func Connect() *sql.DB {
 		panic(err)
 	}
 	return db
+}
+
+func CreateTask(db *sql.DB, task models.Task, todo models.ToDo) error {
+	sqlStatement := `
+		INSERT INTO tasks
+		name, description, date_created, date_updated, todo_id
+		VALUES ($1, $2, NOW(), NOW(), $3)`
+	_, err := db.Exec(sqlStatement, task.Name, task.Description, todo.Id)
+	return err
 }
